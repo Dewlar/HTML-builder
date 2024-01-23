@@ -53,7 +53,7 @@ function getHtmlBundle(template, buildPath, htmlComponentsPath) {
                 for (let i = 0; i < componentNames.length; i++) {
                   htmlTemplate = htmlTemplate.replace(
                     componentNames[i],
-                    components[componentNames[i]],
+                    '\n' + components[componentNames[i]],
                   );
                 }
 
@@ -61,7 +61,7 @@ function getHtmlBundle(template, buildPath, htmlComponentsPath) {
                   buildPath,
                   htmlTemplate
                     .split('\n')
-                    .filter((l) => l.trim() !== '')
+                    .filter((line) => line.trim() !== '')
                     .join('\n'),
                   (err) => {
                     if (err) throw err;
@@ -87,7 +87,6 @@ function getCssBundle(src, build) {
 
     fs.readdir(src, { withFileTypes: true }, (err, files) => {
       if (err) throw err;
-      // console.log(files);
 
       files.forEach((file) => {
         let parsedFilePath = path.parse(file.name);
